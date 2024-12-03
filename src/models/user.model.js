@@ -2,7 +2,7 @@ const mongoose=require("mongoose");
 const {v4}=require("uuid");
 
 
-const authSignInSchema=new mongoose.Schema({
+const userLoginSchema=new mongoose.Schema({
     _id:{
         type:String,
         default:v4
@@ -20,15 +20,18 @@ const authSignInSchema=new mongoose.Schema({
     },
     password:{
         type:String,
-        required:true
+
     },
     mobileNumber:{
-        type:Number,
-        required:true
+        type:String,
+    },
+    picture:{
+        type:String,
+
     }
 
 },{timestamps:true})
 
-const authSignIn=mongoose.model("SignIn",authSignInSchema);
+const userModel=mongoose.model("User",userLoginSchema);
 
-module.exports={authSignIn}
+module.exports={userModel}

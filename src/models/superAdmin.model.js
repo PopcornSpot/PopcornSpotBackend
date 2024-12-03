@@ -2,7 +2,7 @@ const mongoose=require("mongoose");
 const {v4}=require("uuid");
 
 
-const authSignInSchema=new mongoose.Schema({
+const superAdminRegisterSchema=new mongoose.Schema({
     _id:{
         type:String,
         default:v4
@@ -22,13 +22,18 @@ const authSignInSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    role:{
+        type:String,
+    },
     mobileNumber:{
-        type:Number,
-        required:true
+        type:String,
+        required:true,
+        unique:true,
+        trim:true,
     }
 
 },{timestamps:true})
 
-const authSignIn=mongoose.model("SignIn",authSignInSchema);
+const SuperAdminModel=mongoose.model("SuperAdminRegister",superAdminRegisterSchema);
 
-module.exports={authSignIn}
+module.exports={SuperAdminModel}
