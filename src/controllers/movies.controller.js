@@ -3,15 +3,10 @@ const fs=require("fs")
 
 
 const movieCreate=async (req,res)=>{
-    
     try{
-        const { body ,file} = req;
-        
-       console.log(file);
-       
-
+        const { body ,file,userData} = req;
        let data={...body,
-        // userId:userData._id,
+        adminId:userData._id,
        }
 
        if(file){

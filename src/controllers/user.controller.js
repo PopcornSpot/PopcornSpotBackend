@@ -1,7 +1,7 @@
 const sendMailToUser = require("../utils/emailSend");
 const {passwordGenerator}=require("../utils/generator")
 const bcrypt = require("bcrypt")
-const generateToken=require("../middlewares/authToken");
+const generateToken=require("../middlewares/genarateToken");
 const { userModel } = require("../models/user.model");
 
 

@@ -1,6 +1,5 @@
 const express = require("express");
 const connections=require("./config/connectdb")
-const authRoute=require("./routes/auth.route")
 const superAdminRoute=require("./routes/superAdmin.route")
 const adminRoute = require("./routes/admin.route")
 const userRoute = require("./routes/user.route")
@@ -14,10 +13,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 connections.connect();
 app.use("/upload", express.static("src/fileStorage"));
-app.use("/auth", authRoute);
+
+
 app.use("/superadmin",superAdminRoute)
 app.use("/admin",adminRoute)
-app.use("/user",userRoute)
+app.use("/user",userRoute) 
 app.use("/movie",movieRoute)
 
 //http://localhost:7000/upload/1733254662486-InShot_20240825_115055817.jpg

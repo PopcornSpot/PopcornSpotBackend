@@ -2,7 +2,7 @@ const superAdminModel=require("../models/superAdmin.model");
 const sendMailToUser = require("../utils/emailSend");
 const {passwordGenerator}=require("../utils/generator")
 const bcrypt = require("bcrypt")
-const generateToken=require("../middlewares/authToken")
+const generateToken=require("../middlewares/genarateToken")
 
 
 const superAdminRegister =async(req,res)=>{
@@ -41,7 +41,7 @@ const superAdminLogin=async(req,res)=>{
     const findPassword = await bcrypt.compare(password, findEmail.password);
     if (!findPassword) return res.status(400).json({ Message: "Incorrect password.." });
     const token = generateToken.generateToken(findEmail);
-    res.json({ token,findEmail, Message: "SignIn successfully..." });
+    res.json({ token, Message: "SignIn successfully..." });
   }
 catch(err){
 res.json({Error:err.message}); 

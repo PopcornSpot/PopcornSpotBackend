@@ -9,6 +9,7 @@ const movieSchema=new mongoose.Schema({
     },
     adminId:{
         type:String,
+        required:true
     },
     title:{
         type:String,

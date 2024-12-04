@@ -1,26 +1,21 @@
 const jwt = require("jsonwebtoken")
-const signin=require("../models/auth.model")
+const admin=require("../models/admin.model")
 
 const key ="qwertyouoipasfghjklzxcvbnm1234567890"
 
-const generateToken= (data)=>{    
-const token = jwt.sign({data},key,{expiresIn:"1h"})
-return token
-}
-
-
 const verifyToken = async(req,res,next)=>{
     const token =req.headers.authorization;
-    
+    console.log(token);
     if(!token){
        return res.status(401).json({Message:"User Must Be Signin....."})
     }
     const withoutBearer=token.split(' ')[1];
     try{
         const payload = jwt.verify(withoutBearer,key);
-        const checkUser = await signin.authSignIn.findById(payload.data._id);
+       
+        const checkUser =await admin.createAdminModel.findById(payload.data._id);
         if(!checkUser){
-            return res.status(404).json({Message:"User not found for this token...."})
+            return res.status(404).json({Message:"Invalid User..."})
         } 
         req.userData=checkUser;
         next();
@@ -33,4 +28,4 @@ const verifyToken = async(req,res,next)=>{
 
 }
 
-module.exports={generateToken,verifyToken}
+module.exports={verifyToken}

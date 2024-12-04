@@ -7,6 +7,10 @@ const createAdminSchema=new mongoose.Schema({
         type:String,
         default:v4
     },
+    superAdminId:{
+        type:String,
+        required:true,
+    },
     adminName:{
         type:String,
         required:true,
