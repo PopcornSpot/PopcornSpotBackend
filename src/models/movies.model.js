@@ -11,6 +11,10 @@ const movieSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    status:{
+        type:String,
+        default:"pending"
+    },
     title:{
         type:String,
         required:true, 

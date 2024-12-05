@@ -8,7 +8,6 @@ const movieCreate=async (req,res)=>{
        let data={...body,
         adminId:userData._id,
        }
-
        if(file){
         data={
             ...data,
@@ -18,7 +17,6 @@ const movieCreate=async (req,res)=>{
              fileType:file.mimetype
          }; 
        }
-        
         let createdData=await movieModel.movieModel.create(data)
         console.log(createdData,"create");
         

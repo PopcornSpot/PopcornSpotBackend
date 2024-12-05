@@ -27,7 +27,7 @@ const adminRegister = async (req, res) => {
       password: hash,
       superAdminId:req.userData._id,
     };
-    
+
     const savedAdmin=await adminModel.createAdminModel.create(data);
     if (!savedAdmin)
       return res.status(400).json({ Message: "Admin Not Created" });
@@ -41,16 +41,24 @@ const adminRegister = async (req, res) => {
   }
 };
 
-const adminLogin = async (req, res) => {
+const adminLogin = async  (req, res) => {
+  console.log("fghjk");
+  
   try {
     const { email, password } = req.body;
     const findEmail = await adminModel.createAdminModel.findOne({ email });
+    console.log(findEmail);
+    
     if (!findEmail)
       return res.status(400).json({ Message: "Email Not Register..." });
     const findPassword = await bcrypt.compare(password, findEmail.password);
+    console.log(findPassword);
+    
     if (!findPassword)
       return res.status(400).json({ Message: "Incorrect password.." });
     const token = generateToken.generateToken(findEmail);
+    console.log(token);
+    
     res.json({ token, Message: "SignIn successfully..." });
   } catch (err) {
     res.json({ Error: err.message });
