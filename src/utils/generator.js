@@ -1,5 +1,3 @@
-
-
 const passwordGenerator=(length) => {
 let password=""
 let characters="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!@#*%^&()0987654321"
