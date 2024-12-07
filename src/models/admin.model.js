@@ -53,6 +53,19 @@ const createAdminSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    fileName:{
+        type:String    
+    },
+    filePath:{
+        type:String
+    },
+    fileType:{
+        type:String
+    },
+    fileOriginalName:{
+        type:String
+    }
+   
 
 },{timestamps:true})
 

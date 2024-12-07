@@ -95,7 +95,7 @@ const getAllAdmin = async (req, res) => {
     const allAdmins = await adminModel.createAdminModel.find();
 
     if (allAdmins.length === 0) {
-      return res.status(404).json({ Message: "Admins Not Found" });
+      return res.status(404).json({ Message: "Data Not Found" });
     }
     res.json({ allAdmins, Message: "Success....." });
   } catch (err) {
@@ -106,8 +106,15 @@ const getAllAdmin = async (req, res) => {
 const getSingleAdmin = async (req, res) => {
   try {
     let { _id } = req.query;
+    let userData = req.userData;
     
-    const singleAdmin = await adminModel.createAdminModel.findById(_id);
+    let singleAdmin
+    if(_id){
+        singleAdmin = await adminModel.createAdminModel.findById(_id);
+    }
+    else{
+        singleAdmin = await adminModel.createAdminModel.findById(userData._id);
+    }
 
     if (!singleAdmin) {
       return res.status(404).json({ Message: "Admin Not Found" });

@@ -90,6 +90,11 @@ const movieSchema=new mongoose.Schema({
         required:true, 
         trim:true,
     },
+    format:{
+        type:String,
+        required:true, 
+        trim:true,
+    },
     fileName:{
         type:String    
     },

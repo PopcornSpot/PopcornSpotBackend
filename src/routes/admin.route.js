@@ -12,6 +12,7 @@ router.route("/superadmin/updateadmin").put(superAdmin.verifyToken,controller.up
 
 router.route("/login").post(controller.adminLogin)
 router.route("/resetpassword").put(controller.adminResetpass)
+router.route("/getprofiledetails").get(admin.verifyToken,controller.getSingleAdmin)
 
 
 module.exports=router
