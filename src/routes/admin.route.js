@@ -3,6 +3,7 @@ const router=express.Router();
 const controller=require("../controllers/admin.controller");
 const superAdmin = require("../middlewares/superAdmin.token")
 const admin = require("../middlewares/admin.token")
+const singleUpload = require("../middlewares/multer")
 
 router.route("/superadmin/register").post(superAdmin.verifyToken,controller.adminRegister)
 router.route("/superadmin/alladmin").get(superAdmin.verifyToken,controller.getAllAdmin)
@@ -13,6 +14,7 @@ router.route("/superadmin/updateadmin").put(superAdmin.verifyToken,controller.up
 router.route("/login").post(controller.adminLogin)
 router.route("/resetpassword").put(controller.adminResetpass)
 router.route("/getprofiledetails").get(admin.verifyToken,controller.getSingleAdmin)
+router.route("/editprofile").put(admin.verifyToken,singleUpload,controller.updateAdmin)
 
 
 module.exports=router

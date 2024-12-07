@@ -2,6 +2,7 @@ const adminModel = require("../models/admin.model");
 const sendMailToUser = require("../utils/emailSend");
 const { passwordGenerator } = require("../utils/generator");
 const bcrypt = require("bcrypt");
+const fs = require("fs");
 const generateToken = require("../middlewares/genarateToken");
 
 const adminRegister = async (req, res) => {
@@ -130,18 +131,48 @@ const getSingleAdmin = async (req, res) => {
 
 
 const updateAdmin=async(req,res)=>{
-  try{
-  let {_id}=req.query;
-  let data =req.body;
-const updatedAdmin = await adminModel.createAdminModel.findByIdAndUpdate(_id, data, { new: true })
-if(!updatedAdmin){
-  return res.status(404).json({ Message: "Admin Not Found" });
-}
-res.json({updatedAdmin,Message:"Admin Updated Successfully..."})
-}
-catch(err){
-res.json({Error:err.message})
-}
+  try {
+    let { _id } = req.query;
+    let newFile = req.file;
+    let file = req.file;
+    let data = {
+      ...req.body,
+    };
+    if (newFile) {
+      const oldFile = await adminModel.createAdminModel.findById(_id);
+      if (!oldFile) {
+        return res.status(404).json({ Message: "Data Not Found.." });
+      }
+     if(oldFile.fileOrginalName){
+      fs.unlinkSync(`${oldFile.filePath}/${oldFile.fileName}`);
+      data.fileName = newFile.filename;
+      data.filePath = newFile.destination;
+      data.fileType = newFile.mimetype;
+      data.fileOrginalName = newFile.originalname;
+     }
+     else{
+      data = {
+        ...data,
+        filePath: file.destination,
+        fileOriginalName: file.originalname,
+        fileName: file.filename,
+        fileType: file.mimetype,
+      };
+     }
+    }
+    const updatedMovie = await adminModel.createAdminModel.findByIdAndUpdate(
+      _id,
+      data,
+      { new: true }
+    );
+
+    res.json({ updatedMovie, Message: "Updated Successfully" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({
+      Error: error.message,
+    });
+  }
 }
 
 

@@ -31,18 +31,12 @@ const movieCreate = async (req, res) => {
 const getAllMovies = async (req, res) => {
   try {
     let userData = req.userData;
-    // console.log("find",userData);
-
     const findAllMovies = await movieModel.movieModel.find({
       adminId: userData._id,
     });
-    // console.log("movies",findAllMovies);
-
     if (findAllMovies.length == 0) {
       return res.status(404).json({ Message: "Data not found.." });
     }
-    const movies = [];
-
     res.json({ findAllMovies });
   } catch (error) {
     res.json({
@@ -73,9 +67,6 @@ const getMovieForUpdate = async (req, res) => {
 
 const updateMovie = async (req, res) => {
   try {
-    console.log("updated movie");
-    console.log(req.body);
-
     let { _id } = req.query;
     let newFile = req.file;
     let data = {
