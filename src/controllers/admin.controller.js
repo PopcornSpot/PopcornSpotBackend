@@ -160,13 +160,13 @@ const updateAdmin=async(req,res)=>{
       };
      }
     }
-    const updatedMovie = await adminModel.createAdminModel.findByIdAndUpdate(
+    const updatedData = await adminModel.createAdminModel.findByIdAndUpdate(
       _id,
       data,
       { new: true }
     );
 
-    res.json({ updatedMovie, Message: "Updated Successfully" });
+    res.json({ updatedData, Message: "Updated Successfully" });
   } catch (error) {
     console.log(error.message);
     res.json({
