@@ -4,6 +4,17 @@ const controller=require("../controllers/movies.controller");
 const token= require("../middlewares/admin.token")
 const singleUpload=require("../middlewares/multer")
 
+
+
+
+router.route("/user/getallmovie").get(controller.userGetAllMovies)
+
+
+
+
+
+
+
 router.use(token.verifyToken);
 
 // router.route("/add")
@@ -16,5 +27,7 @@ router.route("/getallmovie").get(controller.getAllMovies)
 router.route("/getmovieforupdate").get(controller.getMovieForUpdate)
 router.route("/updatemovie").put(singleUpload, controller.updateMovie)
 router.route("/delete").delete(controller.deleteMovie)
+
+
 
 module.exports=router;

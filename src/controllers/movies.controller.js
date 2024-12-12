@@ -45,6 +45,26 @@ const getAllMovies = async (req, res) => {
   }
 };
 
+
+
+const userGetAllMovies = async (req, res) => {
+  try {
+    const findAllMovies = await movieModel.movieModel.find();
+    if (findAllMovies.length == 0) {
+      return res.status(404).json({ Message: "Data not found.." });
+    }
+    res.json({ findAllMovies });
+  } catch (error) {
+    res.json({
+      Error: error.message,
+    });
+  }
+};
+
+
+
+
+
 const getMovieForUpdate = async (req, res) => {
   try {
     let { _id } = req.query;
@@ -121,4 +141,5 @@ module.exports = {
   getAllMovies,
   getMovieForUpdate,
   updateMovie,
+  userGetAllMovies,
 };
