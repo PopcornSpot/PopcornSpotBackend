@@ -30,10 +30,7 @@ const movieCreate = async (req, res) => {
 
 const getAllMovies = async (req, res) => {
   try {
-    let userData = req.userData;
-    const findAllMovies = await movieModel.movieModel.find({
-      adminId: userData._id,
-    });
+    const findAllMovies = await movieModel.movieModel.find();
     if (findAllMovies.length == 0) {
       return res.status(404).json({ Message: "Data not found.." });
     }

@@ -76,10 +76,10 @@ const superAdminResetpass=async(req,res)=>{
 
 
 const getSuperAdmin = async (req, res) => {
-  try {
-    let { _id } = req.query;
-    const superAdmin = await superAdminModel.SuperAdminModel.findById(_id);
-
+  try { 
+    let userData = req.userData;
+    const  superAdmin = await superAdminModel.SuperAdminModel.findById({_id:userData._id});
+    
     if (!superAdmin) {
       return res.status(404).json({ Message: "Details Not Found" });
     }
@@ -88,6 +88,23 @@ const getSuperAdmin = async (req, res) => {
     res.json({ Error: err.message });
   }
 };
+
+
+
+const getupdateSuperAdmin = async (req, res) => {
+  try { 
+    let {_id}=req.query
+    const  superAdmin = await superAdminModel.SuperAdminModel.findById(_id); 
+    if (!superAdmin) {
+      return res.status(404).json({ Message: "Details Not Found" });
+    }
+    res.json({ superAdmin, Message: "Success....." }); 
+  } catch (err) {
+    res.json({ Error: err.message });
+  }
+};
+
+
 
 
 
@@ -110,4 +127,6 @@ res.json({Error:err.message})
 
 
 
-module.exports={superAdminRegister,superAdminLogin,superAdminResetpass,getSuperAdmin,updateSuperAdmin}
+module.exports={superAdminRegister,superAdminLogin,
+  getupdateSuperAdmin,
+  superAdminResetpass,getSuperAdmin,updateSuperAdmin}

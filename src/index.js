@@ -5,6 +5,9 @@ const adminRoute = require("./routes/admin.route")
 const userRoute = require("./routes/user.route")
 const movieRoute = require("./routes/movie.route")
 const reportRoute = require("./routes/report.route")
+const theatreRoute = require("./routes/theatre.route")
+const screenRoute = require("./routes/screen.route")
+const showRoute = require("./routes/show.route")
 const cors=require("cors")
 
 
@@ -21,6 +24,9 @@ app.use("/admin",adminRoute)
 app.use("/user",userRoute) 
 app.use("/movie",movieRoute)
 app.use("/report",reportRoute)
+app.use("/theatre",theatreRoute)
+app.use("/screen",screenRoute)
+app.use("/show",showRoute)
 
 //http://localhost:7000/upload/1733254662486-InShot_20240825_115055817.jpg
 
