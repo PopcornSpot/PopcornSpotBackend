@@ -5,7 +5,6 @@ const key ="qwertyouoipasfghjklzxcvbnm1234567890"
 
 const verifyToken = async(req,res,next)=>{
     const token =req.headers.authorization;
-    console.log("superrrr");
     
     if(!token){
        return res.status(401).json({Message:"User Must Be Signin....."})

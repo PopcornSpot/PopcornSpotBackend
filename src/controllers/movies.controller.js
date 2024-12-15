@@ -51,6 +51,7 @@ const userGetAllMovies = async (req, res) => {
       return res.status(404).json({ Message: "Data not found.." });
     }
     res.json({ findAllMovies });
+    
   } catch (error) {
     res.json({
       Error: error.message,

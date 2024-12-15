@@ -65,10 +65,6 @@ const updateScreen=async(req,res)=>{
     try{
     let {_id}=req.query;
     let data =req.body; 
-    console.log(data,"data");
-    console.log(_id);
-    
-    
   const updatedcreen = await screen.screenModel.findByIdAndUpdate(_id, data, { new: true })
   if(!updatedcreen){
     return res.status(404).json({ Message: "Data not found" });

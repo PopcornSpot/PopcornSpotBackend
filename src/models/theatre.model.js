@@ -47,6 +47,11 @@ const theatreSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    screenType: {
+        type: String,
+        required: true,
+    
+      },
     email: {
       type: String,
       required: true,

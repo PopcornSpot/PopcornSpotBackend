@@ -37,6 +37,24 @@ const theatreCreate = async (req, res) => {
 
 
 
+const getAllForSuperAdmin = async (req, res) => {
+  try {
+    const theatres = await theatre.theatreModel.find();
+    if (theatres.length == 0) {
+      return res.status(404).json({ Message: "Data not found.." });
+    }
+    res.json({ theatres });
+  } 
+  catch (error) {
+    console.log(error.message);
+    
+    res.json({
+      Error: error.message,
+    });
+  }
+};
+
+
 const getAllTheatres = async (req, res) => {
   try {
     let userData = req.userData;
@@ -47,7 +65,10 @@ const getAllTheatres = async (req, res) => {
       return res.status(404).json({ Message: "Data not found.." });
     }
     res.json({ theatres });
-  } catch (error) {
+  } 
+  catch (error) {
+    console.log(error.message);
+    
     res.json({
       Error: error.message,
     });
@@ -128,5 +149,6 @@ module.exports = {
  getAllTheatres,
  getOneTheatre,
  updatetheatre,
- deletetheatre
+ deletetheatre,
+ getAllForSuperAdmin
 };
