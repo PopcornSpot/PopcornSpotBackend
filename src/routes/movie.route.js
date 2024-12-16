@@ -6,6 +6,7 @@ const superadmin= require("../middlewares/superAdmin.token")
 const singleUpload=require("../middlewares/multer")
 
 router.route("/user/getallmovie").get(controller.userGetAllMovies)
+router.route("/user/getMovieDetails").get(controller.getMovieForUpdate)
 
 router.route("/superadmin/getallmovie").get(superadmin.verifyToken,controller.getAllMovies)
 router.route("/superadmin/updatemovie").put(superadmin.verifyToken,singleUpload,controller.updateMovie)
