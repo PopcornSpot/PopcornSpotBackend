@@ -18,10 +18,11 @@ const verifyToken = async(req,res,next)=>{
         if(!checkUser){
             return res.status(404).json({Message:"Invalid User..."})
         } 
-        req.userData=checkUser;
+        req.userData=checkUser;    
         next();
     }
-    catch(error){        
+    catch(error){ 
+    console.log(error.message);    
        res.json({
         Error:error.message
        })

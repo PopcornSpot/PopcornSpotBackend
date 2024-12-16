@@ -18,7 +18,6 @@ const verifyToken = async(req,res,next)=>{
             return res.status(404).json({Message:"Invalid User..."})
         } 
         req.userData=checkUser;
-
         next();
     }
     catch(error){ 
