@@ -12,7 +12,7 @@ router.route("/superadmin/updatemovie").put(superadmin.verifyToken,singleUpload,
 router.route("/superadmin/delete").delete(superadmin.verifyToken,controller.deleteMovie)
 
 
-// router.use(token.verifyToken);
+router.use(token.verifyToken);
 router.route("/add").post(singleUpload,controller.movieCreate)
 router.route("/getallmovie").get(controller.getAllMovies)
 router.route("/getmovieforupdate").get(controller.getMovieForUpdate)

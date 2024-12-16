@@ -4,6 +4,7 @@ const fs = require("fs");
 const movieCreate = async (req, res) => {
   try {
     const { body, file, userData } = req;
+    
     let data = { ...body, adminId: userData._id };
     if (file) {
       data = {
@@ -15,13 +16,14 @@ const movieCreate = async (req, res) => {
       };
     }
     let createdData = await movieModel.movieModel.create(data);
-    console.log(createdData, "create");
 
     res.json({
       createdData,
       Message: "Movie Created Successfully...",
     });
   } catch (err) {
+    console.log(err.message);
+    
     res.json({
       Error: err.message,
     });
