@@ -2,8 +2,8 @@ const Razorpay = require("razorpay");
 const crypto = require("crypto");
 
 // Razorpay API keys (for local development)
-const RAZORPAY_KEY_ID = "your_key_id"; // Replace with your actual Razorpay Key ID
-const RAZORPAY_KEY_SECRET = "your_key_secret"; // Replace with your actual Razorpay Key Secret
+const RAZORPAY_KEY_ID = "your_key_id"; // Razorpay Key ID
+const RAZORPAY_KEY_SECRET = "your_key_secret"; //Razorpay Key Secret
 
 const razorpay = new Razorpay({
   key_id: RAZORPAY_KEY_ID,
@@ -16,7 +16,7 @@ const CreatePayment = async (req, res) => {
 
   try {
     const options = {
-      amount: amount * 100, // Convert amount to smallest currency unit (e.g., paise)
+      amount: amount * 100, // Convert amount 
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
     };
