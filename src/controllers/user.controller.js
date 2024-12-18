@@ -102,6 +102,19 @@ const userResetPassword=async(req,res)=>{
 
 
 
+const getUserDetails = async (req, res) => {
+  try {
+    let userData = req.userData;
+    const details = await userModel.findById({_id:userData._id});
+
+    if (!details) {
+      return res.status(404).json({ Message: "Data Not Found" });
+    }
+    res.json({ details, Message: "Success....." });
+  } catch (err) {
+    res.json({ Error: err.message });
+  }
+};
 
 
 
@@ -114,5 +127,7 @@ module.exports={
   userRegister,
   userLogin,
 userResetPassword,
+getUserDetails,
+
 
 }

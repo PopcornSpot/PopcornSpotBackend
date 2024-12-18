@@ -5,6 +5,10 @@ const token= require("../middlewares/admin.token")
 const superAdmin= require("../middlewares/superAdmin.token")
 const singleUpload=require("../middlewares/multer")
 
+router.route("/user/gettheatredetails").get(controller.getTheatreForUsers)
+router.route("/user/getalltheatredetails").get(controller.getAllTheatreForUsers)
+router.route("/user/getonedetails").get(controller.getOneTheatre)
+
 router.route("/superadmin/get").get(superAdmin.verifyToken,controller.getAllForSuperAdmin)
 
 router.use(token.verifyToken);

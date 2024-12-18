@@ -58,6 +58,23 @@ const getSingleShow = async (req, res) => {
   };
 
 
+
+
+  const getShowForUser = async (req, res) => {
+    let { adminId } = req.query;
+
+    try {
+      const shows = await show.showModel.find({adminId:adminId});
+      if (shows.length==0) {
+        return res.status(404).json({ Message: "Show Not Found..." });
+      }
+      res.json({ shows, Message: "Success..." }); 
+    } catch (err) {
+      res.json({ Error:err.message });
+    }
+  };
+
+
   
 const updateShow=async(req,res)=>{
     try{
@@ -99,5 +116,6 @@ module.exports = {
     getShow,
     getSingleShow,
     updateShow,
-    deleteShow
+    deleteShow,
+    getShowForUser
 };

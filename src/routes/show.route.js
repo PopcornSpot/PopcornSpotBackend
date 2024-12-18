@@ -3,6 +3,9 @@ const router=express.Router();
 const controller=require("../controllers/show.controller");
 const token = require("../middlewares/admin.token")
 
+
+router.route("/user/getshowdetails").get(controller.getShowForUser);
+
 router.use(token.verifyToken);
 router.route("/create").post(controller.createShow);
 router.route("/getallshow").get(controller.getShow);
