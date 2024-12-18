@@ -92,26 +92,6 @@ const getOneTheatre = async (req, res) => {
     }
   };
 
-
-  
-const getTheatreForUsers = async (req, res) => {
-  try {
-    let { adminId } = req.query;
-  
-    let theatres = await theatre.theatreModel.findOne({adminId:adminId});
-    if (!theatres) {
-      return res.status(404).json({ Message: "Data not found.." });
-    }
-    theatres = [theatres]
-    res.json({theatres});
-  } catch (error) {
-    res.json({
-      Error: error.message,
-    });
-  }
-};
-
-
 const getAllTheatreForUsers = async (req, res) => {
   try {
     let theatres = await theatre.theatreModel.find();
@@ -185,6 +165,5 @@ module.exports = {
  updatetheatre,
  deletetheatre,
  getAllForSuperAdmin,
- getTheatreForUsers,
  getAllTheatreForUsers
 };

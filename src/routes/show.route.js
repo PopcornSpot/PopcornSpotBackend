@@ -4,8 +4,9 @@ const controller=require("../controllers/show.controller");
 const token = require("../middlewares/admin.token")
 
 
-router.route("/user/getshowdetails").get(controller.getShowForUser);
+router.route("/user/getallshows").get(controller.getShowForUser);
 router.route("/user/getshowfortheatre").get(controller.getShowsForTheatreUser);
+router.route("/user/getshowfortheatrelayout").get(controller.getShowsForTheatreLayout);
 
 router.use(token.verifyToken);
 router.route("/create").post(controller.createShow);
