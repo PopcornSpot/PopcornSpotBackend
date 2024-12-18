@@ -5,6 +5,7 @@ const token = require("../middlewares/admin.token")
 
 
 router.route("/user/getshowdetails").get(controller.getShowForUser);
+router.route("/user/getshowfortheatre").get(controller.getShowsForTheatreUser);
 
 router.use(token.verifyToken);
 router.route("/create").post(controller.createShow);
