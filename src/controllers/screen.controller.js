@@ -11,7 +11,7 @@ const createScreen =async(req,res)=>{
         adminID:userData._id 
        }
        const findScreenNo = await screen.screenModel.findOne({ screenNo });
-        if (findScreenNo)
+        if (!findScreenNo)
         return res.status(400).json({ Message: "ScreenNo Already Exists" });
        
        const createdScreen = await screen.screenModel.create(data)
