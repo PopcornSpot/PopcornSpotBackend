@@ -4,17 +4,19 @@ const screen=require("../models/screen.model");
 const createScreen =async(req,res)=>{
     try{  
        let data = req.body;
-       let {screenNo} = req.body 
+      //  let {screenNo} = req.body 
        let userData = req.userData;
        data={
         ...data,
         adminID:userData._id 
        }
-       const findScreenNo = await screen.screenModel.findOne({ screenNo });
-        if (!findScreenNo)
-        return res.status(400).json({ Message: "ScreenNo Already Exists" });
+      //  const findScreenNo = await screen.screenModel.findOne({ screenNo });
+      //  console.log(findScreenNo);
        
-       const createdScreen = await screen.screenModel.create(data)
+      //  if (findScreenNo){
+      // return res.status(400).json({ Message: "ScreenNo Already Exists" });
+      //  }
+       const createdScreen = await screen.screenModel.create(data);       
        res.json({
         Message:"Created Sucessfully..."
       })   
