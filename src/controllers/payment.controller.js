@@ -1,9 +1,13 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
+const payment=require("../models/payment.model");
+const QRCode = require("qrcode");
+const path = require("path");
+const fs = require("fs");
 
 // Razorpay API keys (for local development)
-const RAZORPAY_KEY_ID = "your_key_id"; // Razorpay Key ID
-const RAZORPAY_KEY_SECRET = "your_key_secret"; //Razorpay Key Secret
+const RAZORPAY_KEY_ID = "rzp_test_xWDLy6FLoOyTeJ";
+const RAZORPAY_KEY_SECRET = "Hh9Gb21MGXLAZio6jHlGoaS5"; 
 
 const razorpay = new Razorpay({
   key_id: RAZORPAY_KEY_ID,
@@ -12,11 +16,11 @@ const razorpay = new Razorpay({
 
 // Create Order
 const CreatePayment = async (req, res) => {
-  const { amount } = req.body; // Amount in INR
+  const { amount } = req.body; // Amount in paisa
 
   try {
     const options = {
-      amount: amount * 100, // Convert amount 
+      amount, // Amount in paisa
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
     };
@@ -24,13 +28,14 @@ const CreatePayment = async (req, res) => {
     const order = await razorpay.orders.create(options);
     res.status(200).json({
       success: true,
-      order,
+      orderId: order.id,
+      paymentOptions: order,
     });
   } catch (error) {
+    console.error("Create Order Error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to create order",
-      error: error.message,
     });
   }
 };
@@ -57,7 +62,49 @@ const VerifyPayment = (req, res) => {
   }
 };
 
+
+
+const paymentHistory =async(req,res)=>{
+    try{  
+       let data = req.body; 
+       let userData = req.userData;
+       data={
+        ...data ,
+        userName:userData.userName,
+        userId:userData._id,
+       } 
+      const storagePath = path.join(__dirname, "../fileStorage");
+
+      if (!fs.existsSync(storagePath)) {
+         fs.mkdirSync(storagePath, { recursive: true });
+       }
+       const qrFilePath = path.join(storagePath, `${Date.now()}-qrcode.png`);
+       const fileName = `${Date.now()}-qrcode.png`;
+       await QRCode.toFile(qrFilePath, JSON.stringify(data));
+       
+             data = {
+                 ...data,
+                 qrCodePath: qrFilePath,
+                 fileName:fileName,
+                 bookingStatus:"Confirmed",
+             };
+      console.log(data); 
+      
+       const createdScreen = await payment.paymentModel.create(data);      
+       res.json({
+        createdScreen,
+        Message:"Created Sucessfully..."
+      })   
+    }
+    catch(error){
+        console.log(error.message); 
+      res.json({Message:error.Message})
+    }
+}
+
+
 module.exports = {
   CreatePayment,
   VerifyPayment,
+  paymentHistory
 };

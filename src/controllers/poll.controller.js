@@ -64,7 +64,6 @@ const updatePoll=async(req,res)=>{
     try{
     let {_id}=req.query;
     let data =req.body; 
-    console.log(data);
     
   const updatedPoll = await poll.pollModel.findByIdAndUpdate(_id, data, { new: true })
   if(!updatedPoll){
