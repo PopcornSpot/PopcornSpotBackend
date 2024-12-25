@@ -5,7 +5,6 @@ const QRCode = require("qrcode");
 const path = require("path");
 const fs = require("fs");
 
-// Razorpay API keys (for local development)
 const RAZORPAY_KEY_ID = "rzp_test_xWDLy6FLoOyTeJ";
 const RAZORPAY_KEY_SECRET = "Hh9Gb21MGXLAZio6jHlGoaS5"; 
 
@@ -14,13 +13,12 @@ const razorpay = new Razorpay({
   key_secret: RAZORPAY_KEY_SECRET,
 });
 
-// Create Order
 const CreatePayment = async (req, res) => {
-  const { amount } = req.body; // Amount in paisa
+  const { amount } = req.body;
 
   try {
     const options = {
-      amount, // Amount in paisa
+      amount,
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
     };
@@ -40,7 +38,6 @@ const CreatePayment = async (req, res) => {
   }
 };
 
-// Verify Payment
 const VerifyPayment = (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
@@ -61,8 +58,6 @@ const VerifyPayment = (req, res) => {
     });
   }
 };
-
-
 
 const paymentHistory =async(req,res)=>{
     try{  
@@ -152,6 +147,31 @@ const getBookedSeats = async (req, res) => {
         res.json({ Error:err.message });
       }
     };
+
+    const getAllTicketsforDash = async (req, res) => {
+     try {
+       const allTickets = await payment.paymentModel.find();
+       if (allTickets.length===0) {
+         return res.status(404).json({ Message: "Details Not Found..." });
+       }
+       res.json({ allTickets, Message: "Success..." }); 
+     } catch (err) {
+       res.json({ Error:err.message });
+     }
+   };
+
+   const getAllTicketsforAdmin = async (req, res) => {
+    let { _id } = req.query;
+    try {
+      const allTickets = await payment.paymentModel.find({theatreId:_id});
+      if (allTickets.length===0) {
+        return res.status(404).json({ Message: "Details Not Found..." });
+      }
+      res.json({ allTickets, Message: "Success..." }); 
+    } catch (err) {
+      res.json({ Error:err.message });
+    }
+  };
   
 
 
@@ -163,4 +183,6 @@ module.exports = {
   getBookedSeats,
   getPaymentDetails,
   getAllTickets,
+  getAllTicketsforDash,
+  getAllTicketsforAdmin
 };
