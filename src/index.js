@@ -10,6 +10,7 @@ const screenRoute = require("./routes/screen.route")
 const showRoute = require("./routes/show.route")
 const pollRoute = require("./routes/poll.route")
 const PaymentRoute = require("./routes/payment.route")
+const bannerRoute = require("./routes/banner.route")
 const cors=require("cors")
 
 
@@ -31,6 +32,7 @@ app.use("/screen",screenRoute)
 app.use("/show",showRoute)
 app.use("/poll",pollRoute)
 app.use("/payment",PaymentRoute)
+app.use("/banner",bannerRoute)
 
 //http://localhost:7000/upload/1733254662486-InShot_20240825_115055817.jpg
 

@@ -87,8 +87,7 @@ const paymentHistory =async(req,res)=>{
                  qrCodePath: qrFilePath,
                  fileName:fileName,
                  bookingStatus:"Confirmed",
-             };
-      console.log(data); 
+             }; 
       
        const createdScreen = await payment.paymentModel.create(data);      
        res.json({
@@ -102,9 +101,66 @@ const paymentHistory =async(req,res)=>{
     }
 }
 
+const getBookedSeats = async (req, res) => {
+  const { movieId, showId, selectedDate,showTime } = req.query;
+  
+  if (!movieId || !showId || !selectedDate || !showTime) {
+    return res.status(400).json({ error: "Missing required query parameters." });
+  }
+    try {
+      let bookedSeats = await payment.paymentModel.find({
+        movieId:movieId,showId:showId,showDate:selectedDate,showTime:showTime
+      });
+      if (bookedSeats.length===0) {
+        return res.status(404).json({ Message: "Data not found..." });
+      }
+     bookedSeats = bookedSeats.flatMap((booking) => booking.seatNumbers);
+     
+      res.json({ bookedSeats, Message: "Success..." }); 
+    } catch (err) {
+      console.log(err.message);
+      res.json({ Error:err.message });
+    }
+  };
+
+
+  
+  const getPaymentDetails = async (req, res) => {
+      let { _id } = req.query;
+      try {
+        const ticketDetails = await payment.paymentModel.findById(_id);
+    
+        if (!ticketDetails) {
+          return res.status(404).json({ Message: "Details Not Found..." });
+        }
+        res.json({ ticketDetails, Message: "Success..." }); 
+      } catch (err) {
+        res.json({ Error:err.message });
+      }
+    };
+
+
+  const getAllTickets = async (req, res) => {
+       let userData = req.userData
+      try {
+        const tickets = await payment.paymentModel.find({userId:userData._id});
+        if (tickets.length===0) {
+          return res.status(404).json({ Message: "Details Not Found..." });
+        }
+        res.json({ tickets, Message: "Success..." }); 
+      } catch (err) {
+        res.json({ Error:err.message });
+      }
+    };
+  
+
+
 
 module.exports = {
   CreatePayment,
   VerifyPayment,
-  paymentHistory
+  paymentHistory,
+  getBookedSeats,
+  getPaymentDetails,
+  getAllTickets,
 };
