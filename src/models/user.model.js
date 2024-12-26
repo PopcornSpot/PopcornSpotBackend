@@ -25,9 +25,23 @@ const userLoginSchema=new mongoose.Schema({
     mobileNumber:{
         type:String,
     },
+    gender:{
+        type:String,
+    },
     picture:{
         type:String,
-
+    },
+    fileName:{
+        type:String    
+    },
+    filePath:{
+        type:String
+    },
+    fileType:{
+        type:String
+    },
+    fileOriginalName:{
+        type:String
     }
 
 },{timestamps:true})

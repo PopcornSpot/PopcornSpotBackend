@@ -1,4 +1,7 @@
 const poll=require("../models/poll.model");
+const { userModel } = require("../models/user.model");
+const sendMailToUser = require("../utils/emailSend");
+
 const createPoll =async(req,res)=>{
     try{  
         const { pollName, movies } = req.body;
@@ -9,11 +12,15 @@ const createPoll =async(req,res)=>{
             adminId:userData._id
           };
         console.log(newPoll);
-
        const createdPoll = await poll.pollModel.create(newPoll)
-       res.json({
+       const allUsers = await userModel.find();
+      if (allUsers.length===0) {
+        return res.status(404).json({ Message: "Data not found..." });
+      }
+      await sendMailToUser.sendMailForVoting(allUsers,createdPoll._id);
+      res.json({
         Message:"Created Sucessfully..."
-      })   
+      })
     }
     catch(error){
         console.log(error.message); 
@@ -45,7 +52,6 @@ const getAllPoll = async (req, res) => {
 
 const getSinglePoll = async (req, res) => {
     let { _id } = req.query;
-
     try {
       const getpoll = await poll.pollModel.findById(_id);
   
@@ -64,12 +70,11 @@ const updatePoll=async(req,res)=>{
     try{
     let {_id}=req.query;
     let data =req.body; 
-    
   const updatedPoll = await poll.pollModel.findByIdAndUpdate(_id, data, { new: true })
   if(!updatedPoll){
     return res.status(404).json({ Message: "Data not found" });
   }
-  res.json({updatedPoll,Message:"Updated Successfully..."})
+  res.json({updatedPoll,Message:"Voted Successfully..."})
   }
   catch(err){
     console.log(err.message);

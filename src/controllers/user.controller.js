@@ -132,7 +132,51 @@ const getAllUser = async (req, res) => {
     }
   };
 
-
+ 
+ const updateUser=async(req,res)=>{
+   try {
+     let { _id } = req.query;
+     let newFile = req.file;
+     let file = req.file;
+     let data = {
+       ...req.body,
+     };
+     if (newFile) {
+       const oldFile = await userModel.findById(_id);
+       if (!oldFile) {
+         return res.status(404).json({ Message: "Data Not Found.." });
+       }
+      if(oldFile.fileOrginalName){
+       fs.unlinkSync(`${oldFile.filePath}/${oldFile.fileName}`);
+       data.fileName = newFile.filename;
+       data.filePath = newFile.destination;
+       data.fileType = newFile.mimetype;
+       data.fileOrginalName = newFile.originalname;
+      }
+      else{
+       data = {
+         ...data,
+         filePath: file.destination,
+         fileOriginalName: file.originalname,
+         fileName: file.filename,
+         fileType: file.mimetype,
+       };
+      }
+     }
+     const updatedData = await userModel.findByIdAndUpdate(
+       _id,
+       data,
+       { new: true }
+     );
+ 
+     res.json({ updatedData, Message: "Updated Successfully" });
+   } catch (error) {
+     console.log(error.message);
+     res.json({
+       Error: error.message,
+     });
+   }
+ }
 
 
 
@@ -144,7 +188,8 @@ module.exports={
   userLogin,
 userResetPassword,
 getUserDetails,
-getAllUser
+getAllUser,
+updateUser
 
 
 }
