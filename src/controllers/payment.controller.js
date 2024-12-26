@@ -99,6 +99,7 @@ const paymentHistory =async(req,res)=>{
 const getBookedSeats = async (req, res) => {
   const { movieId, showId, selectedDate,showTime } = req.query;
   
+  
   if (!movieId || !showId || !selectedDate || !showTime) {
     return res.status(400).json({ error: "Missing required query parameters." });
   }
@@ -106,9 +107,6 @@ const getBookedSeats = async (req, res) => {
       let bookedSeats = await payment.paymentModel.find({
         movieId:movieId,showId:showId,showDate:selectedDate,showTime:showTime
       });
-      if (bookedSeats.length===0) {
-        return res.status(404).json({ Message: "Data not found..." });
-      }
      bookedSeats = bookedSeats.flatMap((booking) => booking.seatNumbers);
      
       res.json({ bookedSeats, Message: "Success..." }); 
