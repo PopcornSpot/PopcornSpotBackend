@@ -170,6 +170,20 @@ const getBookedSeats = async (req, res) => {
       res.json({ Error:err.message });
     }
   };
+
+
+  const getAllTicketsforUserProfile = async (req, res) => {
+    let { _id } = req.query;
+    try {
+      const allTickets = await payment.paymentModel.find({userId:_id});
+      if (allTickets.length===0) {
+        return res.status(404).json({ Message: "Details Not Found..." });
+      }
+      res.json({ allTickets, Message: "Success..." }); 
+    } catch (err) {
+      res.json({ Error:err.message });
+    }
+  };
   
 
 
@@ -182,5 +196,6 @@ module.exports = {
   getPaymentDetails,
   getAllTickets,
   getAllTicketsforDash,
-  getAllTicketsforAdmin
+  getAllTicketsforAdmin,
+  getAllTicketsforUserProfile
 };

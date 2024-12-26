@@ -8,12 +8,14 @@ const {
   getAllTickets,
   getAllTicketsforDash,
   getAllTicketsforAdmin,
+  getAllTicketsforUserProfile,
 } = require("../controllers/payment.controller");
 const router = express.Router();
 const token = require("../middlewares/user.token");
 
 router.get("/getalltickets", getAllTicketsforDash);
 router.get("/getallticketsadmin", getAllTicketsforAdmin);
+router.get("/getallticketsforUser", getAllTicketsforUserProfile);
 
 router.post("/createorder", CreatePayment);
 router.post("/verifypayment", VerifyPayment);

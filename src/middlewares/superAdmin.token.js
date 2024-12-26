@@ -12,7 +12,6 @@ const verifyToken = async(req,res,next)=>{
     const withoutBearer=token.split(' ')[1];
     try{
         const payload = jwt.verify(withoutBearer,key);
-       
         const checkUser =await superAdmin.SuperAdminModel.findById(payload.data._id);
         
         if(!checkUser){

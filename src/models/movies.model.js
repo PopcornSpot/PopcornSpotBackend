@@ -60,19 +60,8 @@ const movieSchema=new mongoose.Schema({
         required:true, 
         trim:true,
     },
-    firstClassTicketPrice:{
-        type:String,
-        required:true, 
-        trim:true,
-    },
-    secondClassTicketPrice:{
-        type:String,
-        required:true, 
-        trim:true,
-    },
-    screenNo:{
-        type:String,
-        required:true, 
+    producer:{
+        type:String, 
         trim:true,
     },
     hero:{
