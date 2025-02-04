@@ -1,9 +1,7 @@
 const jwt = require("jsonwebtoken")
 
-const key ="qwertyouoipasfghjklzxcvbnm1234567890"
-
 const generateToken= (data)=>{    
-const token = jwt.sign({data},key,{expiresIn:"1h"})
+const token = jwt.sign({data},process.env.SECRET_KEY,{expiresIn:"1h"})
 return token
 }
 

@@ -13,6 +13,7 @@ const PaymentRoute = require("./routes/payment.route")
 const bannerRoute = require("./routes/banner.route")
 const friendRoute = require("./routes/friend.route")
 const cors=require("cors")
+require('dotenv').config();
 
 
 const app = express();
@@ -36,13 +37,11 @@ app.use("/payment",PaymentRoute)
 app.use("/banner",bannerRoute)
 app.use("/friend",friendRoute)
 
-//http://localhost:7000/upload/1733254662486-InShot_20240825_115055817.jpg
-
 app.use("/", (req, res) => {
     res.send("I'm alive")
 });
 
-const port = 7000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`server is running on http://localhost:${port}`);
-});
+         console.log(`server is running on http://localhost:${port}`);
+     });
