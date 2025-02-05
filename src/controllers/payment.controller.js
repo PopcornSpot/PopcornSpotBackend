@@ -4,13 +4,14 @@ const payment=require("../models/payment.model");
 const QRCode = require("qrcode");
 const path = require("path");
 const fs = require("fs");
+require('dotenv').config();
 
-const RAZORPAY_KEY_ID = "rzp_test_xWDLy6FLoOyTeJ";
-const RAZORPAY_KEY_SECRET = "Hh9Gb21MGXLAZio6jHlGoaS5"; 
+const RAZORPAY_KEY_ID =process.env.RAZORPAY_KEY_ID;
+const RAZORPAY_KEY_SECRET =process.env.RAZORPAY_KEY_SECRET ; 
 
 const razorpay = new Razorpay({
-  key_id: RAZORPAY_KEY_ID,
-  key_secret: RAZORPAY_KEY_SECRET,
+  key_id:RAZORPAY_KEY_ID,
+  key_secret:RAZORPAY_KEY_SECRET,
 });
 
 const CreatePayment = async (req, res) => {
