@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 require('dotenv').config();
 
-const RAZORPAY_KEY_ID =process.env.RAZORPAY_KEY_ID;
+const RAZORPAY_KEY_ID =process.env.RAZORPAY_KEY_ID;     
 const RAZORPAY_KEY_SECRET =process.env.RAZORPAY_KEY_SECRET ; 
 
 const razorpay = new Razorpay({
